@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Margherita Pizza",
+    "price": 299,
+    "image": "margherita.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Veggie Burger",
+    "price": 199,
+    "image": "veggie-burger.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Penne Alfredo Pasta",
+    "price": 249,
+    "image": "alfredo-pasta.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Grilled Sandwich",
+    "price": 149,
+    "image": "grilled-sandwich.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Crispy French Fries",
+    "price": 99,
+    "image": "fries.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Caesar Salad",
+    "price": 179,
+    "image": "caesar-salad.jpg"
+  }
+]
