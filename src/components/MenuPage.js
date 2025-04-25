@@ -22,7 +22,7 @@ export default function MenuPage() {
       <h2>Table {tableId} - Menu</h2>
 
       <div className="menu-list">
-        {menuData.map(item => (
+        {menuData?.map(item => (
           <div key={item.id} className="menu-item">
             <img
               src={`/images/${item.image}`}
@@ -60,7 +60,7 @@ export default function MenuPage() {
         </div>
         <button
           className="checkout-btn"
-          disabled={cart.length === 0}
+          disabled={cart.length == 0}
         >
           Proceed to Checkout
         </button>
