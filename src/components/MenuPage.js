@@ -5,65 +5,104 @@ import menuData from '../data/menu.json';
 
 export default function MenuPage() {
   const { tableId } = useParams();
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState({}); // { [id]: { ...item, quantity } }
 
   const addToCart = item => {
-    setCart(prev => [...prev, item]);
+    setCart(prev => {
+      const prevQty = prev[item.id]?.quantity || 0;
+      return {
+        ...prev,
+        [item.id]: { ...item, quantity: prevQty + 1 }
+      };
+    });
   };
 
-  const removeFromCart = index => {
-    setCart(prev => prev.filter((_, i) => i !== index));
-  };
+  const increaseQty = id =>
+    setCart(prev => ({
+      ...prev,
+      [id]: { ...prev[id], quantity: prev[id].quantity + 1 }
+    }));
 
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
+  const decreaseQty = id =>
+    setCart(prev => {
+      const q = prev[id].quantity - 1;
+      if (q <= 0) {
+        const { [id]: _, ...rest } = prev;
+        return rest;
+      }
+      return { ...prev, [id]: { ...prev[id], quantity: q } };
+    });
+
+  const entries = Object.values(cart);
+  const totalItems = entries.reduce((sum, c) => sum + c.quantity, 0);
+  const totalPrice = entries.reduce((sum, c) => sum + c.price * c.quantity, 0);
+
+  // <-- NEW: handle checkout click
+  const handleCheckout = () => {
+    if (totalItems === 0) return;
+    alert('🎉 Your order has been confirmed! Thank you for ordering.');
+    // optional: clear the cart after confirming
+    setCart({});
+  };
 
   return (
     <div className="menu-page">
-      <h2>Table {tableId} - Menu</h2>
-
-      <div className="menu-list">
-        {menuData?.map(item => (
-          <div key={item.id} className="menu-item">
-            <img
-              src={`/images/${item.image}`}
-              alt={item.name}
-              className="menu-item-img"
-            />
-            <div className="menu-item-details">
-              <strong>{item.name}</strong>
-              <span>₹{item.price}</span>
+      <h2>Table {tableId} — Menu</h2>
+      <div className="menu-container">
+        <div className="menu-list">
+          {menuData.map(item => (
+            <div key={item.id} className="menu-item-card">
+              <img
+                // src={require(`../assets/images/${item.image}`)}
+                alt={item.name}
+                className="menu-item-img"
+              />
+              <div className="menu-item-info">
+                <h4>{item.name}</h4>
+                <p>₹{item.price}</p>
+                <button onClick={() => addToCart(item)} className="add-btn">
+                  Add +
+                </button>
+              </div>
             </div>
-            <button onClick={() => addToCart(item)}>
-              Add to Cart
-            </button>
-          </div>
-        ))}
-      </div>
-
-      <div className="cart">
-        <h3>Cart</h3>
-        {cart.length === 0 && <p>No items yet.</p>}
-        {cart.map((item, idx) => (
-          <div key={idx} className="cart-item">
-            {item.name} - ₹{item.price}
-            <button
-              className="remove-btn"
-              onClick={() => removeFromCart(idx)}
-            >
-              &times;
-            </button>
-          </div>
-        ))}
-        <hr />
-        <div className="cart-total">
-          <strong>Total: ₹{total}</strong>
+          ))}
         </div>
-        <button
-          className="checkout-btn"
-          disabled={cart.length == 0}
-        >
-          Proceed to Checkout
-        </button>
+
+        <aside className="cart-sidebar">
+          <h3>Your Cart</h3>
+          {entries.length === 0 ? (
+            <p className="empty-cart">Cart is empty</p>
+          ) : (
+            <>
+              <ul className="cart-items">
+                {entries.map(c => (
+                  <li key={c.id} className="cart-item-row">
+                    <span className="item-name">{c.name}</span>
+                    <div className="item-controls">
+                      <button onClick={() => decreaseQty(c.id)} className="qty-btn">−</button>
+                      <span className="qty">{c.quantity}</span>
+                      <button onClick={() => increaseQty(c.id)} className="qty-btn">+</button>
+                    </div>
+                    <span className="item-price">₹{c.price} each</span>
+                    <span className="line-total">₹{c.price * c.quantity}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="cart-summary">
+                <div>Total Items: {totalItems}</div>
+                <div>Total Price: ₹{totalPrice}</div>
+                {/* UPDATED: attach handler */}
+                <button
+                  className="checkout-btn"
+                  onClick={handleCheckout}
+                >
+                  Proceed to Checkout
+                </button>
+              </div>
+            </>
+          )}
+        </aside>
       </div>
     </div>
   );
