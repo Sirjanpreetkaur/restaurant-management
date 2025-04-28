@@ -129,3 +129,41 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+.qr-container {
+  padding: 1rem;
+}
+
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.qr-card {
+  text-align: center;
+  padding: 0.5rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  transition: box-shadow 0.2s;
+}
+
+.qr-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.qr-label {
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+.qr-card small a {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.qr-card small a:hover {
+  text-decoration: underline;
+}
