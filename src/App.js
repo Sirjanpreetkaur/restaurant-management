@@ -6,12 +6,13 @@ import MenuPage from './components/MenuPage';
 function App() {
   return (
     <Router>
-      <nav style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
+      {/* <nav style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
         <Link to="/">Home</Link>
-      </nav>
+      </nav> */}
       <Switch>
         <Route exact path="/" component={QRGenerator} />
         <Route path="/menu/:tableId" component={MenuPage} />
+        
       </Switch>
     </Router>
   );

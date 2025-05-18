@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../assets/menuPage.css';
-import menuData from '../data/menu.json';
+import Header from './Header.js'
+import {MenuOption} from '../data/menuData.js';
+import MenuGrid from './MenuGrid.js';
 
 export default function MenuPage() {
   const { tableId } = useParams();
@@ -46,64 +48,66 @@ export default function MenuPage() {
   };
 
   return (
-    <div className="menu-page">
-      <h2>Table {tableId} — Menu</h2>
-      <div className="menu-container">
-        <div className="menu-list">
-          {menuData.map(item => (
-            <div key={item.id} className="menu-item-card">
-              <img
-                // src={require(`../assets/images/${item.image}`)}
-                alt={item.name}
-                className="menu-item-img"
-              />
-              <div className="menu-item-info">
-                <h4>{item.name}</h4>
-                <p>₹{item.price}</p>
-                <button onClick={() => addToCart(item)} className="add-btn">
-                  Add +
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+    <>
+    <Header/>
+    <MenuGrid/>
+    </>
+    // <div className="menu-page">
+    //   <h2>Table {tableId} — Menu</h2>
+    //   <div className="menu-container">
+    //     <div className="menu-list">
+    //       {menuData.map(item => (
+    //         <div key={item.id} className="menu-item-card">
+              
+    //           <img src={item.image} alt={item.name} className="menu-item-img" />
 
-        <aside className="cart-sidebar">
-          <h3>Your Cart</h3>
-          {entries.length === 0 ? (
-            <p className="empty-cart">Cart is empty</p>
-          ) : (
-            <>
-              <ul className="cart-items">
-                {entries.map(c => (
-                  <li key={c.id} className="cart-item-row">
-                    <span className="item-name">{c.name}</span>
-                    <div className="item-controls">
-                      <button onClick={() => decreaseQty(c.id)} className="qty-btn">−</button>
-                      <span className="qty">{c.quantity}</span>
-                      <button onClick={() => increaseQty(c.id)} className="qty-btn">+</button>
-                    </div>
-                    <span className="item-price">₹{c.price} each</span>
-                    <span className="line-total">₹{c.price * c.quantity}</span>
-                  </li>
-                ))}
-              </ul>
+    //           <div className="menu-item-info">
+    //             <h4>{item.name}</h4>
+    //             <p>₹{item.price}</p>
+    //             <button onClick={() => addToCart(item)} className="add-btn">
+    //               Add +
+    //             </button>
+    //           </div>
+    //         </div>
+    //       ))}
+    //     </div>
 
-              <div className="cart-summary">
-                <div>Total Items: {totalItems}</div>
-                <div>Total Price: ₹{totalPrice}</div>
-                {/* UPDATED: attach handler */}
-                <button
-                  className="checkout-btn"
-                  onClick={handleCheckout}
-                >
-                  Proceed to Checkout
-                </button>
-              </div>
-            </>
-          )}
-        </aside>
-      </div>
-    </div>
+    //     <aside className="cart-sidebar">
+    //       <h3>Your Cart</h3>
+    //       {entries.length === 0 ? (
+    //         <p className="empty-cart">Cart is empty</p>
+    //       ) : (
+    //         <>
+    //           <ul className="cart-items">
+    //             {entries.map(c => (
+    //               <li key={c.id} className="cart-item-row">
+    //                 <span className="item-name">{c.name}</span>
+    //                 <div className="item-controls">
+    //                   <button onClick={() => decreaseQty(c.id)} className="qty-btn">−</button>
+    //                   <span className="qty">{c.quantity}</span>
+    //                   <button onClick={() => increaseQty(c.id)} className="qty-btn">+</button>
+    //                 </div>
+    //                 <span className="item-price">₹{c.price} each</span>
+    //                 <span className="line-total">₹{c.price * c.quantity}</span>
+    //               </li>
+    //             ))}
+    //           </ul>
+
+    //           <div className="cart-summary">
+    //             <div>Total Items: {totalItems}</div>
+    //             <div>Total Price: ₹{totalPrice}</div>
+    //             {/* UPDATED: attach handler */}
+    //             <button
+    //               className="checkout-btn"
+    //               onClick={handleCheckout}
+    //             >
+    //               Proceed to Checkout
+    //             </button>
+    //           </div>
+    //         </>
+    //       )}
+    //     </aside>
+    //   </div>
+    // </div>
   );
 }
