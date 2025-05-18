@@ -1,8 +1,11 @@
-import React from 'react';
-import '../assets/menuPage.css';
-import {MenuOption} from '../data/menuData.js';
+import React from "react";
+import "../assets/menuPage.css";
+import { MenuOption } from "../data/menuData.js";
+import { useParams } from "react-router-dom";
 
 export default function Header() {
+  const { tableId } = useParams();
+
   return (
     <header className="header">
       <div className="header-top">
@@ -21,7 +24,7 @@ export default function Header() {
         <div className="categories-container">
           {MenuOption?.map((item, index) => (
             <div key={index} className="category">
-              <a href={`/menu/s/en/wagamama/${item.url}/all/`}>
+              <a href={`/menu/${tableId}/${item.url}/all/`}>
                 <img
                   src={`https://instalacarte.com/media/cache/emoji_small/emoji/${item.img}?v3`}
                   alt={item.name}

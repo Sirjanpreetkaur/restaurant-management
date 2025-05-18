@@ -11,7 +11,7 @@ function App() {
       </nav> */}
       <Switch>
         <Route exact path="/" component={QRGenerator} />
-        <Route path="/menu/:tableId" component={MenuPage} />
+        <Route path="/menu/:tableId/:category" component={MenuPage} />
         
       </Switch>
     </Router>

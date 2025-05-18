@@ -1,5 +1,6 @@
 export const MenuOption = [
-  { name: "Popular", url: "popular", img: "popular.png" },
+  { name: "All", url: "home", img: "popular.png" },
+  // { name: "Popular", url: "popular", img: "popular.png" },
   { name: "curry", url: "curry", img: "curry-rice_1f35b3.png" },
   { name: "ramen", url: "ramen", img: "steaming-bowl_1f35c5.png" },
   { name: "teppanyaki", url: "teppanyaki", img: "steaming-bowl_1f35c4.png" },
